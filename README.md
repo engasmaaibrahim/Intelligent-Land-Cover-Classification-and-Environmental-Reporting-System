@@ -270,6 +270,6 @@ streamlit run app.py
 
 ## Author
 
-Asmaa Ibrahim
+**Asmaa Ibrahim**
+AI & Machine Learning Engineer
 
-AI/ML Engineer 
