@@ -1,0 +1,16 @@
+# Dataset
+Data/
+Processed_Data/
+EuroSAT_MS/
+
+# Environment
+venv/
+
+# Python
+__pycache__/
+
+# Data Files
+*.tif
+*.tiff
+*.npy
+*.zip

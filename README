@@ -1,0 +1,275 @@
+# Intelligent Land Cover Classification and Environmental Reporting System
+
+## Overview
+
+This project presents an end-to-end intelligent system for land cover classification using Sentinel-2 multispectral satellite imagery. The system combines Convolutional Neural Networks (CNNs), spectral feature engineering, Large Language Models (LLMs), and an interactive Streamlit application to provide automated environmental analysis and reporting.
+
+The project evaluates three different image representations:
+
+* RGB Images
+* NDVI (Normalized Difference Vegetation Index)
+* RGB + NIR (Near Infrared)
+
+The final system classifies land cover types and generates professional environmental reports with recommendations using a Groq-powered LLM.
+
+---
+
+## Features
+
+* Land cover classification using CNNs
+* Comparison of RGB, NDVI, and RGB+NIR representations
+* NDVI-based vegetation analysis
+* Automated environmental report generation using LLMs
+* Interactive Streamlit interface
+* Sentinel-2 TIFF image support
+* Confidence-based model comparison
+
+---
+
+## Dataset
+
+### Dataset Download
+
+The EuroSAT Multispectral Dataset can be downloaded from Zenodo:
+
+Dataset URL:
+
+https://zenodo.org/records/7711810/files/EuroSAT_MS.zip?download=1
+
+
+### EuroSAT Multispectral Dataset
+
+The project uses the EuroSAT Multispectral Dataset based on Sentinel-2 satellite imagery.
+
+Dataset Characteristics:
+
+* 10 Land Cover Classes
+* 13 Spectral Bands
+* Sentinel-2 Satellite Images
+* Multispectral TIFF Format
+
+Classes:
+
+1. AnnualCrop
+2. Forest
+3. HerbaceousVegetation
+4. Highway
+5. Industrial
+6. Pasture
+7. PermanentCrop
+8. Residential
+9. River
+10. SeaLake
+
+---
+
+## Data Representations
+
+### RGB
+
+Uses visible bands:
+
+* Red
+* Green
+* Blue
+
+Input Shape:
+
+```text
+64 × 64 × 3
+```
+
+---
+
+### NDVI
+
+Vegetation index calculated using:
+
+NDVI = (NIR - Red) / (NIR + Red)
+
+Input Shape:
+
+```text
+64 × 64 × 1
+```
+
+---
+
+### RGB + NIR
+
+Uses:
+
+* Red
+* Green
+* Blue
+* Near Infrared
+
+Input Shape:
+
+```text
+64 × 64 × 4
+```
+
+---
+
+## CNN Architecture
+
+All experiments use the same CNN architecture to ensure fair comparison.
+
+```text
+Input Layer
+    ↓
+Conv2D (32, 3×3, ReLU)
+    ↓
+Batch Normalization
+    ↓
+MaxPooling2D (2×2)
+    ↓
+Conv2D (64, 3×3, ReLU)
+    ↓
+Batch Normalization
+    ↓
+MaxPooling2D (2×2)
+    ↓
+Conv2D (128, 3×3, ReLU)
+    ↓
+Batch Normalization
+    ↓
+MaxPooling2D (2×2)
+    ↓
+Flatten
+    ↓
+Dense (128, ReLU)
+    ↓
+Dropout (0.5)
+    ↓
+Dense (10, Softmax)
+```
+
+---
+
+## Training Configuration
+
+* Optimizer: Adam
+* Batch Size: 32
+* Early Stopping
+* Model Checkpoint
+* ReduceLROnPlateau
+* Sparse Categorical Crossentropy
+
+---
+
+## Results
+
+| Model       | Test Accuracy |
+| ----------- | ------------: |
+| NDVI CNN    |        90.79% |
+| RGB CNN     |        95.19% |
+| RGB+NIR CNN |        96.27% |
+
+### Key Finding
+
+The RGB+NIR model achieved the highest accuracy, demonstrating that Near Infrared information provides valuable spectral features for land cover classification.
+
+---
+
+## LLM-Based Environmental Reporting
+
+The system integrates a Groq-hosted Large Language Model to generate professional environmental reports.
+
+### Pipeline
+
+```text
+Input TIFF Image
+        ↓
+RGB CNN
+NDVI CNN
+RGB+NIR CNN
+        ↓
+Predictions + Confidence Scores
+        ↓
+NDVI Statistics
+        ↓
+Groq LLM
+        ↓
+Environmental Report
+        ↓
+Recommendations
+```
+
+The generated report includes:
+
+* Classification Summary
+* Confidence Analysis
+* Vegetation Assessment
+* Environmental Interpretation
+* Potential Risks
+* Recommendations
+
+---
+
+## Streamlit Application
+
+The project includes an interactive Streamlit application that allows users to:
+
+* Upload Sentinel-2 TIFF images
+* Run all CNN models
+* View prediction confidence
+* Analyze NDVI statistics
+* Generate environmental reports
+* Download generated reports
+
+---
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd project
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Set your Groq API key:
+
+```bash
+set GROQ_API_KEY=your_api_key
+```
+
+---
+
+## Run Streamlit Application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## Technologies Used
+
+* Python
+* TensorFlow / Keras
+* NumPy
+* Rasterio
+* Streamlit
+* Groq API
+* Sentinel-2 Imagery
+* Remote Sensing
+* Deep Learning
+* Large Language Models (LLMs)
+
+---
+
+
+## Author
+
+Asmaa Ibrahim
+
+AI/ML Engineer 
